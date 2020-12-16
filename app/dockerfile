@@ -1,0 +1,20 @@
+# get latest python alpine docker image
+FROM python:3.9.1-alpine
+MAINTAINER Andres Zabala
+
+# sets the working dir for any run, copy, or add instructions
+WORKDIR /app
+
+# prevent the creation of cache files in source dir
+ENV PYTHONDONTWRITEBYTECODE 1
+
+# force stdin, stdout, and stderr to be unbuffered
+ENV PYTHONUNBUFFERED 1
+
+# update pip then install requirements
+RUN pip install --upgrade pip
+COPY ./requirements.txt /app/requirements.txt
+RUN pip install -r requirements.txt
+
+# copy /app folder from host to /app in container
+COPY . /app

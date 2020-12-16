@@ -1,0 +1,15 @@
+version: '3.7'
+
+services:
+  books:
+    build: ./app
+    # run command to start Django server on container startup
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      # create volume mount from app folder on host to app folder on container
+      - ./app/:/app/
+    ports:
+      # map tcp port 8000 in container to 8000 on host
+      - 8000:8000
+    env_file:
+      - ./app/.env.dev
